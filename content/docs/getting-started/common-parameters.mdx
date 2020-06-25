@@ -7,9 +7,9 @@ order: 2
 
 We utilise HTTP-request headers for our API calls which include `Authorization`, `DigitalSignature` and `X-Request-Id` headers. In all our responses we will send an `X-Correlation-Id` in the header.
 
-`GET` request have `Authorization` header.
+`GET` requests have an `Authorization` header.
 
-NON-GET requests such as `POST`, `PATCH` and `DELETE` have `Authorization` header.
+NON-GET requests such as `POST`, `PATCH` and `DELETE` have an `Authorization` header.
 
 import ParameterDetails from 'src/components/parameter-details'
 import parameters from './parameters.json'

@@ -5,15 +5,15 @@ order: 4
 
 ## HAL Links
 
-ClearBank® uses HAL (Hypertext Application Language) to hyperlink between resources in our API.
+We use HAL (Hypertext Application Language) to hyperlink between resources in our API.
 
-Each HAL Link contains:
+Each HAL hyperlink contains:
 
-| Parameter   | Type      | Required | Description                                                                                                           |
-|-------------|-----------|----------|----------------------------------------------------------------------------------------------------------------------|
-| `name`      | `string`  | Required | The named link type                                                                                                  |
-| `href`      | `string`  | Required | URI to be used                                                                                                       |
-| `templated` | `boolean` |          | Specifies “true” if href is a URI template, i.e. with parameters. Otherwise, this property is absent or set to false |
+| Parameter   | Type      | Required | Description                                                                                                               |
+|-------------|-----------|----------|---------------------------------------------------------------------------------------------------------------------------|
+| `name`      | `string`  | Required | The named link type                                                                                                       |
+| `href`      | `string`  | Required | URI to be used                                                                                                            |
+| `templated` | `boolean` |          | Specified as `true` if href is a URI template, i.e. with parameters. Otherwise, this property is absent or set to `false` |
 
 #### Example HAL Links
 ```json

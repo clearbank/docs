@@ -5,13 +5,13 @@ order: 3
 
 ## Authenticate your API calls
 
-ClearBank® uses your API token to authenticate your requests and allows you to securely access protected resources.
+We use your API token to authenticate your requests and allows you to securely access protected resources.
 
 The base URL for your environment is either:
 - Simulation `https://institution-api-sim.clearbank.co.uk/`
 - Production `https://institution-api.clearbank.co.uk/`
 
-Your API token should be included in your HTTP `Authorization` header. Refer to [Common Parameters](#common-parameters]) for more information.
+Your API token should be included in your HTTP `Authorization` header. Please refer to [Common Parameters](#common-parameters]) for more information.
 
 This example request shows the API token in the `Authorization` , `DigitalSignature` and `X-Request-Id` header.
 
@@ -30,5 +30,5 @@ The response shows results from the test call
 }
 ```
 
-To confirm that authentication and signature verification are working as expected, when you send a POST/v1/Test request you will receive a `FITestEvent webhook` from ClearBank®, if subscribed.
+To confirm that authentication and signature verification are working as expected, when you send a POST/v1/Test request you will receive a `FITestEvent webhook` from ClearBank® (if you are subscribed to it).
 We use webhooks to deliver transaction confirmation notifications and account-specific reconciliations to your system as soon as such events occur on your account. Please refer to [Test Webhooks](/webhooks/) for more information.
