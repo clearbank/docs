@@ -16,7 +16,8 @@ ClearBank® requests return a HTTP status code to indicate the success or failur
 | `400`       | Bad request. Something went wrong with the request. The response should include the reason why the request has failed                               |
 | `403`       | Forbidden. Your API token does not have permissions to perform the request                                                                          |
 | `404`       | Not found. The resource you are looking for cannot be found                                                                                         |
-| `409`       | Conflict. A request conflict with the current state of the server                                                                                   |
+| `409`       | Conflict. A request conflict with the current state of the server
+| `429`       | Too many requests. You have sent too many requests in a given time ("rate limiting")                                                                                     |
 | `500`       | Internal server error                                                                                                                               |
 | `503`       | Server error. Service unavailable                                                                                                                   |
 
