@@ -4,6 +4,7 @@ order: 1
 ---
 
 import EndpointBlock from "src/components/endpoint-block";
+import * as DD_CONSTANTS from "./managing-direct-debit-instructions.constants"
 
 ## Managing Direct Debit Instructions
 
@@ -17,6 +18,7 @@ If you are transferring an existing sort code to ClearBank® that already has DD
   type="post"
   title="Create DDI for an account"
   message="This endpoint is only required if you have received a validated Paper DDI and need to inform ClearBank of its existence. All other DDIs are set up through AUDDIS."
+  description={DD_CONSTANTS.postCreateDdiForAccountDescription}
   endpoints={[
     {
       path: "/v1/Accounts/{accountId}/Mandates",
@@ -73,6 +75,7 @@ If you are transferring an existing sort code to ClearBank® that already has DD
   type="post"
   title="Create a DDI for a virtual account"
   message="This endpoint is only required if you have received a validated Paper DDI and need to inform ClearBank of its existence. All other DDIs are set up through AUDDIS."
+  description={DD_CONSTANTS.postCreateDdiForVirtualAccountDescription}
   endpoints={[
     {
       path: "/v1/Accounts/{accountId}/Virtual/{virtualAccountId}/Mandates",

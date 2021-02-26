@@ -4,6 +4,7 @@ order: 1
 ---
 
 import EndpointBlock from "src/components/endpoint-block";
+import * as ACCOUNTS_CONSTANTS from "./real-accounts.constants"
 
 ## Real Accounts
 
@@ -24,6 +25,7 @@ The balance of a real account is also held by ClearBank® and can be viewed via 
 <EndpointBlock
   type="post"
   title="Create an account"
+  description={ACCOUNTS_CONSTANTS.postAccountsDescription}
   endpoints={[
     {
       path: "/v3/Accounts",

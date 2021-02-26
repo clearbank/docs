@@ -40,6 +40,8 @@ However, you can only send CHAPS payments between 08:00 – 17:00 Monday to Frid
 Pattern: The character set has been extended to include all SWIFT allowed characters. Alphanumeric (uppercase and lowercase) and special characters*****.<br />
 *Special characters: **/** (forward slash), **-** (hyphen), **?** (question mark), **:** (colon), **(** (left parenthesis), **)** (right parenthesis), **.** (full stop), **,** (comma), **'** (apostrophe), **+** (plus sign), &nbsp; (blank space).
 
+This endpoint uses the endToEndIdentification field as a duplicate check to ensure the request is idempotent.   
+
 <EndpointBlock
 type="post"
 title="Initiate a payment"
