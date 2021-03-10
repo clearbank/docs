@@ -24,5 +24,6 @@ Webhook responses contain a 200 HTTP status code which includes a `Nonce` number
 
 | Element          | Type          | Description                                                                 |
 | ---------------- | ------------- | --------------------------------------------------------------------------- |
-| `DigitalSignature` | string        | Signed hash of the body of the request. The hash signed by your private key |
-| `200 `             | array         | HTTP response status code                                                   |
+| `DigitalSignature` | string      | Signed hash of the body of the request. The hash signed by your private key |
+| `Nonce`            | int         | The value that you receive in the webhook                                   |
+| `200 `             | int         | HTTP response status code                                                   |
