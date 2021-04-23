@@ -1,0 +1,19 @@
+---
+title: "Multicurrency Accounts"
+order: 5
+---
+
+import WebhookPlaceholder from 'src/components/webhook-placeholder'
+import WebhookSummary from 'src/components/webhook-summary'
+
+## Multicurrency Accounts
+
+<WebhookSummary
+  description='Create an account'
+  endpoint='/multi-currency/#real-accounts'
+  method='post'
+  webhooks={[
+    'mccy-account-created-webhook-v1'
+  ]}
+/>
+<WebhookPlaceholder render='mccy-account-created-webhook-v1' />
