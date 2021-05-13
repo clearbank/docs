@@ -1,0 +1,1155 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Accounts API",
+    "description": "Accounts and Virtual Accounts",
+    "contact": {
+      "name": "Support",
+      "email": "fiapisupport@clear.bank"
+    },
+    "version": "1.0.MCCY-ACC"
+  },
+  "paths": {
+    "/mccy/v1/Accounts": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to retrieve a list of all the accounts associated with your institution, excluding virtual accounts.",
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "description": "The page number to control returned results into manageable sets. Default if not supplied: 1.",
+            "schema": {
+              "type": "integer",
+              "description": "The page number to control returned results into manageable sets. Default if not supplied: 1.",
+              "format": "int32",
+              "nullable": true,
+              "example": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The page size to control returned results into manageable sets. Default if not supplied: 50.",
+            "schema": {
+              "type": "integer",
+              "description": "The page size to control returned results into manageable sets. Default if not supplied: 50.",
+              "format": "int32",
+              "nullable": true,
+              "example": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountsResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to create a new account.",
+        "parameters": [
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "832c6ab876a94c18a4cf15a780a0bb04"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to create the account.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Client Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/Accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to retrieve details related to an account.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to amend the properties of an existing account.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "1421cb4c7c4c41f3acb106a98cd2b5a7"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to update the account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to close an existing account. Once an account has been closed, it cannot be reopened.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "accountCloseReason",
+            "in": "query",
+            "description": "Reason for why the account is being closed. Available options include: Other, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount.",
+            "schema": {
+              "type": "string",
+              "description": "Reason for why the account is being closed. Available options include: Other, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount."
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "3a94e17719434a97bf93323ebc367d04"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/Accounts/{accountId}/status": {
+      "patch": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to update the status of an existing account.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "457209b9551c4fa08394c511cb1467ba"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to update the account status",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/Accounts/{accountId}/currencies": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to enable an existing account to support a new currency.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "cffc77c0df3e4410af9f033297f4a33e"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to enable an existing account to support a new currency.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCurrencyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountIdentifier": {
+        "required": [
+          "identifier",
+          "kind"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique account identifier value that corresponds to the specified account identifier kind.",
+            "example": "GB29CLRB40391731926000"
+          },
+          "kind": {
+            "type": "string",
+            "description": "The kind of account identifier provided. This can only be IBAN.",
+            "example": "Iban"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountStatusReason": {
+        "enum": [
+          "Other",
+          "AccountHolderBankrupt",
+          "DissatisfiedCustomer",
+          "FinancialCrime",
+          "FraudFirstParty",
+          "FraudThirdParty",
+          "AccountHolderDeceased",
+          "AccountSwitched",
+          "CompanyNoLongerTrading",
+          "DuplicateAccount"
+        ],
+        "type": "string",
+        "description": "Reason for why the current status of the account is Closed or Suspended. Valid options include: Other, AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount."
+      },
+      "AccountResponse": {
+        "required": [
+          "currencies",
+          "id",
+          "identifiers",
+          "kind",
+          "label",
+          "name",
+          "owner",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the account held with ClearBank.",
+            "format": "uuid",
+            "example": "98efba88-c43e-41c5-9d47-0938f2fe7192"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the account.",
+            "example": "Gen Seg Eco Bank"
+          },
+          "label": {
+            "type": "string",
+            "description": "Friendly label for the account.",
+            "example": "Mid tier asset funds"
+          },
+          "owner": {
+            "type": "string",
+            "description": "The name used to identify the legal owner of the account.",
+            "example": "Eco Bank"
+          },
+          "kind": {
+            "type": "string",
+            "description": "The type of funds the account will hold. Valid options include: YourFunds, GeneralSegregated, DesignatedSegregated, GeneralClient, DesignatedClient.",
+            "example": "GeneralSegregated"
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Currencies supported by the account. This is the three-letter ISO currency code."
+          },
+          "productId": {
+            "type": "string",
+            "description": "The product identifier used to determine the behaviour of the account. Only applicable for FSCS accounts.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Unique identifier for the customer that the account is associated with. Only applicable for FSCS accounts.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "190e5d1d-7016-4efe-9988-3ebfecb21192"
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountIdentifier"
+            },
+            "description": "List of identifiers."
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the account. Valid options include: Active, Suspended, Closed.",
+            "example": "Active"
+          },
+          "statusReason": {
+            "$ref": "#/components/schemas/AccountStatusReason"
+          },
+          "statusInformation": {
+            "type": "string",
+            "description": "Additional information to support the specified status reason.",
+            "nullable": true,
+            "example": "Received documentation"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountsResponse": {
+        "required": [
+          "accounts"
+        ],
+        "type": "object",
+        "properties": {
+          "accounts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountResponse"
+            },
+            "description": "A collection of accounts belonging to the institution associated with the API Token."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "RoutingCode": {
+        "required": [
+          "code",
+          "kind"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "maxLength": 11,
+            "minLength": 1,
+            "type": "string",
+            "description": "Code that corresponds to the specified routing code kind. For example, 010203.",
+            "example": "010203"
+          },
+          "kind": {
+            "type": "string",
+            "description": "The kind of routing code provided. For example, GBSortCode.",
+            "example": "GBSortCode"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Payment routing information used by ClearBank to associate your bank account with your institution."
+      },
+      "CreateAccountRequest": {
+        "required": [
+          "currencies",
+          "kind",
+          "label",
+          "owner",
+          "routingCode"
+        ],
+        "type": "object",
+        "properties": {
+          "label": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Friendly label for the account.",
+            "example": "Mid tier asset funds"
+          },
+          "owner": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "The name used to identify the legal owner of the account.",
+            "example": "Eco Bank"
+          },
+          "kind": {
+            "type": "string",
+            "description": "The type of funds the account will hold. Valid options include: YourFunds, GeneralSegregated, DesignatedSegregated, GeneralClient, DesignatedClient.",
+            "example": "GeneralSegregated"
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Currencies supported by the account. This is the three-letter ISO currency code."
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountIdentifier"
+            },
+            "description": "List of identifiers. If the account identifier of kind IBAN is not specified, it will be generated automatically.",
+            "nullable": true
+          },
+          "routingCode": {
+            "$ref": "#/components/schemas/RoutingCode"
+          },
+          "productId": {
+            "type": "string",
+            "description": "The product identifier used to determine the behaviour of the account. Only applicable for FSCS accounts.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          },
+          "customerId": {
+            "type": "string",
+            "description": "Unique identifier for the customer that the account is associated with. Only applicable for FSCS accounts.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "725a5f09-595a-4db1-946a-8330d423da34"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateAccountRequest": {
+        "required": [
+          "label",
+          "owner"
+        ],
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Friendly label for the account.",
+            "example": "High tier asset funds"
+          },
+          "owner": {
+            "type": "string",
+            "description": "The name used to identify the legal owner of the account.",
+            "example": "Eco Bank Ltd"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateAccountStatusRequest": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Desired status of the account. Valid options include: Active, Suspended.",
+            "example": "Suspended"
+          },
+          "statusReason": {
+            "type": "string",
+            "description": "Reason to support the desired status of the account. Mandatory only if the desired status is \"Suspended\" and optional when the desired status is \"Active\". Valid options include: AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, Other.",
+            "example": "FinancialCrime"
+          },
+          "information": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Additional information to support the specified status reason. Mandatory only if the desired status is \"Suspended\" and the reason is \"Other\".",
+            "nullable": true,
+            "example": "Suspected fraudulent activity"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddCurrencyRequest": {
+        "required": [
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string",
+            "description": "The three-letter ISO currency code for the new currency to be supported by the account.",
+            "example": "EUR"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "authorisation": {
+        "type": "apiKey",
+        "description": "Your API Token, retrieved from the web portal",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "authorisation": []
+    }
+  ]
+}
