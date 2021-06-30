@@ -256,11 +256,11 @@
           {
             "name": "accountId",
             "in": "path",
-            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           }
@@ -357,11 +357,11 @@
           {
             "name": "accountId",
             "in": "path",
-            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -488,11 +488,11 @@
           {
             "name": "accountId",
             "in": "path",
-            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -575,11 +575,11 @@
           {
             "name": "accountId",
             "in": "path",
-            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -708,11 +708,11 @@
           {
             "name": "accountId",
             "in": "path",
-            "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/v1/Accounts.",
+              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
