@@ -59,7 +59,10 @@ For more information about currencies supported by ClearBank Multicurrency accou
   endpoints={[
     {
       path: "/mccy/v1/Accounts/{accountId}",
-      version: "1.0.MCCY-ACC"
+      version: "1.0.MCCY-ACC",
+      webhooks: [
+        'mccy-account-updated-webhook-v1'
+      ]
     }
   ]}
 />
@@ -70,7 +73,10 @@ For more information about currencies supported by ClearBank Multicurrency accou
   endpoints={[
     {
       path: "/mccy/v1/Accounts/{accountId}/status",
-      version: "1.0.MCCY-ACC"
+      version: "1.0.MCCY-ACC",
+      webhooks: [
+        'mccy-account-updated-webhook-v1'
+      ]
     }
   ]}
 />
@@ -81,7 +87,10 @@ For more information about currencies supported by ClearBank Multicurrency accou
   endpoints={[
     {
       path: "/mccy/v1/Accounts/{accountId}",
-      version: "1.0.MCCY-ACC"
+      version: "1.0.MCCY-ACC",
+      webhooks: [
+        'mccy-account-updated-webhook-v1'
+      ]
     }
   ]}
 />

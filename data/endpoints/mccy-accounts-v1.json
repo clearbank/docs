@@ -23,11 +23,9 @@
             "description": "The page number to control returned results into manageable sets. Default if not supplied: 1.",
             "schema": {
               "type": "integer",
-              "description": "The page number to control returned results into manageable sets. Default if not supplied: 1.",
-              "format": "int32",
-              "nullable": true,
-              "example": 1
-            }
+              "format": "int32"
+            },
+            "example": 1
           },
           {
             "name": "pageSize",
@@ -35,11 +33,9 @@
             "description": "The page size to control returned results into manageable sets. Default if not supplied: 50.",
             "schema": {
               "type": "integer",
-              "description": "The page size to control returned results into manageable sets. Default if not supplied: 50.",
-              "format": "int32",
-              "nullable": true,
-              "example": 50
-            }
+              "format": "int32"
+            },
+            "example": 50
           }
         ],
         "responses": {
@@ -125,7 +121,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "832c6ab876a94c18a4cf15a780a0bb04"
+              "example": "4585f47e34e84f0bb805bc2161c3e0cc"
             }
           }
         ],
@@ -260,7 +256,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           }
@@ -361,7 +356,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -382,7 +376,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "1421cb4c7c4c41f3acb106a98cd2b5a7"
+              "example": "e05104be814446c8b6d3591006c24d07"
             }
           }
         ],
@@ -492,7 +486,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -501,8 +494,7 @@
             "in": "query",
             "description": "Reason for why the account is being closed. Available options include: Other, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount.",
             "schema": {
-              "type": "string",
-              "description": "Reason for why the account is being closed. Available options include: Other, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount."
+              "type": "string"
             }
           },
           {
@@ -512,7 +504,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "3a94e17719434a97bf93323ebc367d04"
+              "example": "cd23b82207d34a2face71df6a27af4f4"
             }
           }
         ],
@@ -530,6 +522,29 @@
           },
           "404": {
             "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Client Error",
             "headers": {
               "X-Correlation-Id": {
                 "description": "A unique identifier which should be referenced in any issue with any API call.",
@@ -579,7 +594,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -600,7 +614,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "457209b9551c4fa08394c511cb1467ba"
+              "example": "9605701f1e6d4bccbb7d074b2958954d"
             }
           }
         ],
@@ -712,7 +726,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
               "format": "uuid"
             }
           },
@@ -733,7 +746,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "example": "cffc77c0df3e4410af9f033297f4a33e"
+              "example": "72f9fff09d8e48c7aa190f3cce0e7eb2"
             }
           }
         ],
@@ -818,6 +831,759 @@
           }
         }
       }
+    },
+    "/mccy/v1/Accounts/{accountId}/balances": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "This endpoint is used to retrieve the balances of a single account.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The unique identifier for the account. This can be retrieved from GET/mccy/v1/Accounts.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalancesResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalancesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/VirtualAccounts": {
+      "post": {
+        "tags": [
+          "VirtualAccounts"
+        ],
+        "summary": "This endpoint is used to create a new virtual account.",
+        "parameters": [
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "71539b4a1b59426da9dbca8874d9084b"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to create the virtual account.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVirtualAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/VirtualAccounts/{virtualAccountId}": {
+      "get": {
+        "tags": [
+          "VirtualAccounts"
+        ],
+        "summary": "This endpoint is used to retrieve details related to a virtual account.",
+        "parameters": [
+          {
+            "name": "virtualAccountId",
+            "in": "path",
+            "description": "The unique identifier for the virtual account.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "VirtualAccounts"
+        ],
+        "summary": "This endpoint is used to amend the properties of an existing virtual account.",
+        "parameters": [
+          {
+            "name": "virtualAccountId",
+            "in": "path",
+            "description": "The unique identifier for the virtual account.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "56d479f3e2bc4ba697982269fe2dab93"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to update the virtual account.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVirtualAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "VirtualAccounts"
+        ],
+        "summary": "This endpoint is used to close an existing virtual account. Once a virtual account has been closed, it cannot be reopened.",
+        "parameters": [
+          {
+            "name": "virtualAccountId",
+            "in": "path",
+            "description": "The unique identifier for the virtual account.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "accountCloseReason",
+            "in": "query",
+            "description": "Reason for why the account is being closed. Available options include: Other, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "cb831afeb3da4c74a9bd2b8f682f7542"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Client Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mccy/v1/VirtualAccounts/{virtualAccountId}/status": {
+      "patch": {
+        "tags": [
+          "VirtualAccounts"
+        ],
+        "summary": "This endpoint is used to update the status of an existing virtual account.",
+        "parameters": [
+          {
+            "name": "virtualAccountId",
+            "in": "path",
+            "description": "The unique identifier for the virtual account.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "DigitalSignature",
+            "in": "header",
+            "description": "Signed hash of the body of the request. The hash is signed by your private key.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "8D4364AFA2A79D46DDDA74361F9DF1EE939D84DC81E31FC53FAB221CA54E5E31"
+            }
+          },
+          {
+            "name": "X-Request-Id",
+            "in": "header",
+            "description": "A unique identifier for the request.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "42760b12a2d74e779600d8e04e3192b7"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data to update the virtual account status.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVirtualAccountStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "headers": {
+              "X-Correlation-Id": {
+                "description": "A unique identifier which should be referenced in any issue with any API call.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -843,22 +1609,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "AccountStatusReason": {
-        "enum": [
-          "Other",
-          "AccountHolderBankrupt",
-          "DissatisfiedCustomer",
-          "FinancialCrime",
-          "FraudFirstParty",
-          "FraudThirdParty",
-          "AccountHolderDeceased",
-          "AccountSwitched",
-          "CompanyNoLongerTrading",
-          "DuplicateAccount"
-        ],
-        "type": "string",
-        "description": "Reason for why the current status of the account is Closed or Suspended. Valid options include: Other, AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount."
       },
       "AccountResponse": {
         "required": [
@@ -960,55 +1710,81 @@
         },
         "additionalProperties": false
       },
-      "ProblemDetails": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "title": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
-            "nullable": true
-          },
-          "instance": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": {}
+      "AccountStatusReason": {
+        "enum": [
+          "Other",
+          "AccountHolderBankrupt",
+          "DissatisfiedCustomer",
+          "FinancialCrime",
+          "FraudFirstParty",
+          "FraudThirdParty",
+          "AccountHolderDeceased",
+          "AccountSwitched",
+          "CompanyNoLongerTrading",
+          "DuplicateAccount"
+        ],
+        "type": "string",
+        "description": "Reason for why the current status of the account is Closed or Suspended. Valid options include: Other, AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, AccountHolderDeceased, AccountSwitched, CompanyNoLongerTrading, DuplicateAccount."
       },
-      "RoutingCode": {
+      "AddCurrencyRequest": {
         "required": [
-          "code",
-          "kind"
+          "currency"
         ],
         "type": "object",
         "properties": {
-          "code": {
-            "maxLength": 11,
-            "minLength": 1,
+          "currency": {
+            "maxLength": 3,
+            "minLength": 3,
             "type": "string",
-            "description": "Code that corresponds to the specified routing code kind. For example, 010203.",
-            "example": "010203"
-          },
-          "kind": {
-            "type": "string",
-            "description": "The kind of routing code provided. For example, GBSortCode.",
-            "example": "GBSortCode"
+            "description": "The three-letter ISO currency code for the new currency to be supported by the account.",
+            "example": "EUR"
           }
         },
-        "additionalProperties": false,
-        "description": "Payment routing information used by ClearBank to associate your bank account with your institution."
+        "additionalProperties": false
+      },
+      "Balance": {
+        "type": "object",
+        "properties": {
+          "available": {
+            "type": "number",
+            "description": "The balance that is available to spend.  This is affected by earmarks against the balance.",
+            "format": "double"
+          },
+          "actual": {
+            "type": "number",
+            "description": "The balance ignoring any earmarks.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BalancesResponse": {
+        "type": "object",
+        "properties": {
+          "currencies": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Balance"
+            },
+            "description": "A dictionary of currencies and their associated balances.",
+            "nullable": true,
+            "example": {
+              "EUR": {
+                "Available": 100,
+                "Actual": 120
+              },
+              "USD": {
+                "Available": 550.5,
+                "Actual": 750.5
+              },
+              "CZK": {
+                "Available": 0,
+                "Actual": 0
+              }
+            }
+          }
+        },
+        "additionalProperties": false
       },
       "CreateAccountRequest": {
         "required": [
@@ -1074,6 +1850,75 @@
         },
         "additionalProperties": false
       },
+      "CreateVirtualAccountRequest": {
+        "required": [
+          "accountId",
+          "virtualAccount"
+        ],
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "description": "Unique identifier for the real account associated with the virtual account.",
+            "format": "uuid",
+            "example": "98efba88-c43e-41c5-9d47-0938f2fe7192"
+          },
+          "virtualAccount": {
+            "$ref": "#/components/schemas/VirtualAccount"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "RoutingCode": {
+        "required": [
+          "code",
+          "kind"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "maxLength": 11,
+            "minLength": 1,
+            "type": "string",
+            "description": "Code that corresponds to the specified routing code kind. For example, 010203.",
+            "example": "010203"
+          },
+          "kind": {
+            "type": "string",
+            "description": "The kind of routing code provided. For example, GBSortCode.",
+            "example": "GBSortCode"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Payment routing information used by ClearBank to associate your bank account with your institution."
+      },
       "UpdateAccountRequest": {
         "required": [
           "label",
@@ -1082,11 +1927,15 @@
         "type": "object",
         "properties": {
           "label": {
+            "maxLength": 100,
+            "minLength": 1,
             "type": "string",
             "description": "Friendly label for the account.",
             "example": "High tier asset funds"
           },
           "owner": {
+            "maxLength": 140,
+            "minLength": 1,
             "type": "string",
             "description": "The name used to identify the legal owner of the account.",
             "example": "Eco Bank Ltd"
@@ -1107,32 +1956,137 @@
           },
           "statusReason": {
             "type": "string",
-            "description": "Reason to support the desired status of the account. Mandatory only if the desired status is \"Suspended\" and optional when the desired status is \"Active\". Valid options include: AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, Other.",
+            "description": "Reason to support the desired status of the account. Valid options include: AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, Other.",
+            "nullable": true,
             "example": "FinancialCrime"
           },
           "information": {
             "maxLength": 100,
             "minLength": 0,
             "type": "string",
-            "description": "Additional information to support the specified status reason. Mandatory only if the desired status is \"Suspended\" and the reason is \"Other\".",
+            "description": "Additional information to support the specified status reason.",
             "nullable": true,
             "example": "Suspected fraudulent activity"
           }
         },
         "additionalProperties": false
       },
-      "AddCurrencyRequest": {
+      "UpdateVirtualAccountRequest": {
         "required": [
-          "currency"
+          "owner"
         ],
         "type": "object",
         "properties": {
-          "currency": {
-            "maxLength": 3,
-            "minLength": 3,
+          "owner": {
+            "maxLength": 140,
+            "minLength": 1,
             "type": "string",
-            "description": "The three-letter ISO currency code for the new currency to be supported by the account.",
-            "example": "EUR"
+            "description": "The name used to identify the legal owner of the virtual account.",
+            "example": "James Smith-Jones"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVirtualAccountStatusRequest": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Desired status of the virtual account. Valid options include: Active, Suspended.",
+            "example": "Suspended"
+          },
+          "statusReason": {
+            "type": "string",
+            "description": "Reason to support the desired status of the virtual account. Valid options include: AccountHolderBankrupt, DissatisfiedCustomer, FinancialCrime, FraudFirstParty, FraudThirdParty, Other.",
+            "nullable": true,
+            "example": "FinancialCrime"
+          },
+          "information": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "description": "Additional information to support the specified status reason.",
+            "nullable": true,
+            "example": "Suspected fraudulent activity"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccount": {
+        "required": [
+          "owner"
+        ],
+        "type": "object",
+        "properties": {
+          "owner": {
+            "maxLength": 140,
+            "minLength": 1,
+            "type": "string",
+            "description": "The name used to identify the legal owner of the virtual account.",
+            "example": "James Smith"
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountIdentifier"
+            },
+            "description": "List of identifiers. If the account identifier of kind IBAN is not specified, it will be generated automatically.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Set of elements used to identify a virtual account."
+      },
+      "VirtualAccountResponse": {
+        "required": [
+          "accountId",
+          "id",
+          "identifiers",
+          "owner",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Account identifier used to uniquely identify the virtual account.",
+            "format": "uuid",
+            "example": "3fb8a2ce-064a-4de6-8e92-def9fce8772c"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Unique identifier for the real account associated with the virtual account.",
+            "format": "uuid",
+            "example": "98efba88-c43e-41c5-9d47-0938f2fe7192"
+          },
+          "owner": {
+            "type": "string",
+            "description": "The name used to identify the legal owner of the virtual account.",
+            "example": "James Smith"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the virtual account. Valid options include: Active, Suspended, Closed.",
+            "example": "Active"
+          },
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountIdentifier"
+            },
+            "description": "List of identifiers."
+          },
+          "statusReason": {
+            "$ref": "#/components/schemas/AccountStatusReason"
+          },
+          "statusInformation": {
+            "type": "string",
+            "description": "Additional information to support the specified status reason.",
+            "nullable": true,
+            "example": "Received documentation"
           }
         },
         "additionalProperties": false
