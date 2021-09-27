@@ -23,3 +23,22 @@ For more information about the countries that you can send high value payments t
     }
   ]}
 />
+
+<EndpointBlock
+  type="post"
+  title="Initiate a payment"
+  description={<p>This endpoint is used to initiate payments.</p>}
+  endpoints={[
+    {
+      path: "/v1/mccy/payments",
+      version: "1.0.MCCY-INI-Paymet",
+      webhooks: [
+        'mccy-create-trx-webhook-v1',
+        'mccy-settle-trx-webhook-v1',
+        'mccy-cancel-trx-webhook-v1',
+        'mccy-assessment-failed-webhook-v1',
+        'mccy-validation-failed-webhook-v1'
+      ]
+    }
+  ]}
+/>
