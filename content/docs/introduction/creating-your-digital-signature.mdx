@@ -2,19 +2,32 @@
 title: "Creating your Digital Signature"
 order: 4
 ---
-
 ## Creating your Digital Signature
 
-We use your Digital Signature to ensure that the integrity of any request body sent to us is maintained. The whole HTTP request body is used to create the Digital Signature and is specific to the body of each request.
+We use a Digital Signature to ensure that the integrity of a request body (sent to us) is maintained. The whole HTTP request body (in its original format) is used to create a Digital Signature, as it is specific to the body of each request.
 
-Follow these steps to generate a Digital Signature using the Secure Hashing Algorithm (SHA):
+We use the following specifications to create a Digital Signature:
+- Raw Message Encoding: UTF-8
+- Message digest algorithm: SHA-256
+- Signing algorithm: RSA
+- Padding: PKCS#1 v1.5
+- Digital Signature Encoding: Base64
 
-- Hash the request body using SHA 256
-- Pass the hash value produced into your Hardware Security Module (HSM)*
-- Request a Digital Signature using the RSA encryption algorithm (all carried out within the HSM)*
+Follow these steps to create a Digital Signature:
+
+- UTF-8 encode the exact request body that will be sent to our institution api (any differences e.g., addition/removal of spaces will result in a totally different Digital Signature)
+- Hash the encoded value using SHA-256
+- Request a Digital Signature for that hash value from your Hardware Security Module (HSM)*
 - The output is the Message Digital Signature
-- Place the Digital Signature within the HTTP header for all requests that have a request body
+- Send the Base64 encoded string representation of the digital signature in the HTTP header **DigitalSignature** for all requests that have a request body
 
 *In the simulation environment, these operations can be undertaken using Open Source solutions.
 
-For additional help with creating your authentication profile and Digital Signature, we have a [GitHub resource](https://github.com/clearbank/fi-api-signtool) to help with your integration in the simulation environment. Please note that these are examples only and are not recommended for use in a production environment.
+For additional help with creating your authentication profile and Digital Signature, please refer to the following examples on the ClearBank GitHub repository:
+- [C# example for ClearBank® API and Webhooks](https://github.com/clearbank/fi-api-101)
+- [Postman Collections for invoking the ClearBank® API](https://github.com/clearbank/fi-api-postman)
+- [C# example for signing ClearBank® API requests](https://github.com/clearbank/fi-api-signtool)
+- [Python example for signing ClearBank® API requests](https://github.com/clearbank/fi-api-signtool-python)
+- [Java example for signing ClearBank® API requests](https://github.com/clearbank/fi-api-signtool-java)
+
+Please note that the code in these examples is not production ready and has been simplified for brevity.
