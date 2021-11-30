@@ -76,8 +76,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Client Error",
             "content": {
               "text/plain": {
                 "schema": {
@@ -96,8 +96,8 @@
               }
             }
           },
-          "422": {
-            "description": "Client Error",
+          "404": {
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -206,8 +206,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "422": {
+            "description": "Client Error",
             "content": {
               "text/plain": {
                 "schema": {
@@ -226,8 +226,8 @@
               }
             }
           },
-          "422": {
-            "description": "Client Error",
+          "404": {
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -265,6 +265,7 @@
         "type": "object",
         "properties": {
           "year": {
+            "minimum": 2019,
             "type": "integer",
             "description": "Year for which to generate the statement, specified using the Four Digit Year format (e.g., 2021). Cannot be for more than 24 months in the past.",
             "format": "int32"
