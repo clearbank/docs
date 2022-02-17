@@ -160,8 +160,6 @@
         "type": "object",
         "properties": {
           "identifier": {
-            "maxLength": 34,
-            "minLength": 1,
             "type": "string",
             "description": "Ultimate debtor’s unique identifier value. This can only be an IBAN or BIC.",
             "example": "IR14BARC20031838591122"
